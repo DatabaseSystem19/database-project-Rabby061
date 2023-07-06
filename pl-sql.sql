@@ -175,3 +175,25 @@ end;
 /
 
 drop function fun;
+
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER try
+BEFORE delete ON product 
+REFERENCING OLD AS o NEW AS n
+FOR EACH ROW
+BEGIN
+delete from orders where product_id=:o.product_id;
+END;
+/
+
+
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER try2
+BEFORE delete ON branch 
+REFERENCING OLD AS o NEW AS n
+FOR EACH ROW
+BEGIN
+delete from employee where branch_id=:o.branch_id;
+END;
+/
+
